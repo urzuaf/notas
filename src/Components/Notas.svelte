@@ -21,7 +21,7 @@
 </script>
 
 <td>
-  <input class="w-24 bg-inherit text-center" bind:value={nota.nombre} />
+  <input class="w-fit bg-inherit text-center" bind:value={nota.nombre} />
 </td>
 <td>
   <input

@@ -1,19 +1,16 @@
 ---
-import Ramo from "../Components/Ramo.svelte"
-import Plantillas from "../Components/Plantillas.svelte"
+import ContenedorRamo from "../Components/ContenedorRamo.svelte"
 ---
-
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
+    <head>
+        <meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Notas</title>
 	</head>
 	<body>
-		<Plantillas client:load/>
-		<!-- <Ramo client:load />-->
+        <ContenedorRamo client:only />
 	</body>
 </html>
 
@@ -22,3 +19,4 @@ import Plantillas from "../Components/Plantillas.svelte"
 		padding: 1rem;
 	}
 </style>
+
