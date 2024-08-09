@@ -4,7 +4,10 @@
   import Notas from "./Notas.svelte";
 
   export let unidad: Unidad;
-  export let update: any
+  export let update: any;
+  export let removeN: any;
+  export let unidadIndex: number;
+  export let removeU: any;
 
   function addNota() {
     let nuevaNota: Nota = {
@@ -17,15 +20,26 @@
     unidad.notas = [...unidad.notas, nuevaNota];
   }
 
-  function updateUnidad(){
+  function updateUnidad() {
+    let auxUnidad: Unidad = unidad;
+    auxUnidad = CalculoUnidad(unidad);
 
-    let auxUnidad: Unidad = unidad
-    auxUnidad = CalculoUnidad(unidad)
-
-    unidad = auxUnidad
-    update()
+    unidad = auxUnidad;
+    update();
   }
 
+  function borrarNotaU(index: number) {
+    removeN(unidadIndex, index);
+  }
+
+  function borrarUnidad() {
+    removeU(unidadIndex);
+  }
+
+  function toggleAprobativa() {
+    unidad.aprobativa = !unidad.aprobativa;
+    update();
+  }
 </script>
 
 <div class=" w-fit rounded">
@@ -42,13 +56,21 @@
         class="w-8 bg-inherit text-center"
         type="number"
         bind:value={unidad.porcentaje}
+        on:change={updateUnidad}
       />
-      % 
-      
+      %
     </p>
-    <button class="font-bold text-lg text-white" on:click={addNota}>+</button>
+    <button on:click={toggleAprobativa}
+      >{unidad.aprobativa ? "Aprobativa" : "No Aprobativa"}</button
+    >
+    <div>
+      <button title="añadir nota" class="font-bold text-lg text-white" on:click={addNota}>+</button>
+      <button on:click={removeU} class="text-white">
+        <img src="/trash.svg" alt="borrar" title="eliminar unidad" width="18" />
+      </button>
+    </div>
   </div>
-  <table class="bg-slate-200 pb-1   ">
+  <table class="bg-slate-200 pb-1">
     <thead class="pb-2">
       <tr>
         <th>Nombre</th>
@@ -60,15 +82,20 @@
       </tr>
     </thead>
     <tbody>
-      {#each unidad.notas as nota}
+      {#each unidad.notas as nota, idx}
         <tr>
-          <Notas {nota} update={updateUnidad} />
+          <Notas
+            {nota}
+            update={updateUnidad}
+            notaIndex={idx}
+            removeN={borrarNotaU}
+          />
         </tr>
       {/each}
     </tbody>
   </table>
-  <div class="bg-slate-600 p-1  rounded-b-md text-white flex justify-around">
-    <p class="">Nota unidad: {unidad.notaUnidad} </p>
+  <div class="bg-slate-600 p-1 rounded-b-md text-white flex justify-around">
+    <p class="">Nota unidad: {unidad.notaUnidad}</p>
     <p>Puntaje unidad: {unidad.puntaje}</p>
   </div>
 </div>

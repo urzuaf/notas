@@ -3,7 +3,7 @@
     //import ramoP from '../Model/test'
     import Unidades from "./Unidades.svelte";
   //import Notas from "./Notas.svelte";
-  import { CalculoRamo } from "../Utils/calculoNota";
+  import { CalculoRamo, ReprobadoPorAprobativa } from "../Utils/calculoNota";
 
   //let ramo = ramoP
 
@@ -38,14 +38,15 @@
         let auxRamo : Ramo = ramo
         auxRamo = CalculoRamo(ramo)
         ramo = auxRamo
+
+        if(ReprobadoPorAprobativa(ramo) && ramo.notaFinal && ramo.notaFinal >= 3.95){
+          ramo.notaFinal = 3.94
+        }
+
+        //Definimos si el color sera rojo o verde para la nota
         //Como es posible que se agreguen las notas tanto como 1 o 10, consideramos ambos casos
         if(ramo.notaFinal){
-          if(ramo.notaFinal < 10){
             ramo.notaFinal < 3.95 ? estado = 'text-red-800': estado = 'text-green-800'
-          }
-          else{
-            ramo.notaFinal < 39.5 ? estado = 'text-red-800': estado = 'text-green-800'
-          }
         } 
   }
 
@@ -55,6 +56,19 @@
       editarNombre = !editarNombre
     }
   }
+
+    function borrarNota(unidadIdx:number, notaIdx : number){
+      let auxUnidad = ramo.unidades[unidadIdx].notas
+      auxUnidad.splice(notaIdx, 1); // 2nd parameter means remove one item only
+
+      ramo.unidades[unidadIdx].notas = [...auxUnidad]
+    }
+  
+    function borrarUnidad(unidadIdx: number){
+      let auxUnidades = ramo.unidades
+      auxUnidades.splice(unidadIdx, 1)
+      ramo.unidades = [...auxUnidades]
+    }
 
 </script>
 
@@ -79,9 +93,9 @@
         </div>
     </div>
     <p class="py-4 pl-4 text-lg">Nota actual: <span class="font-bold {estado}">{ramo.notaFinal}</span></p>
-    {#each ramo.unidades as unidad}
+    {#each ramo.unidades as unidad, idx}
         <div class="mb-2">
-            <Unidades unidad={unidad} update={updateRamo} />
+            <Unidades unidad={unidad} update={updateRamo} unidadIndex={idx} removeN={borrarNota} removeU={borrarUnidad} />
         </div>
     {/each}
     <!-- {#each ramo.notas as nota}

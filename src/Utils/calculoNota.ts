@@ -3,6 +3,7 @@ import type {Nota, Ramo, Unidad} from "../Types/tipos";
 export function calculoNota( nota : Nota ) : number {
     
     let notaTotal = nota.nota * nota.porcentaje / 100
+    notaTotal = parseFloat(notaTotal.toFixed(4))
     return notaTotal
 
 }
@@ -37,10 +38,29 @@ export function CalculoRamo ( ramo: Ramo): Ramo {
     return ramo
 }
 
+export function ReprobadoPorAprobativa(ramo: Ramo) : boolean{
+    let aux : boolean = false
+
+    ramo.unidades.forEach((unidad)=>{
+        if(unidad.aprobativa && unidad.notaUnidad && unidad.notaUnidad < 3.95){
+           aux = true
+        }
+    })
+
+    if (!aux){
+        ramo.unidades.forEach((unidad)=>{
+            unidad.notas.forEach((nota)=>{
+                if(nota.aprobativa && nota.nota < 3.95){
+                    aux = true
+                }
+            })
+        })
+    }
+   
+    return aux
+}
+
 export function calcularCuantoFalta(notas: Nota[]) : Nota[]{
-
-
-
 
     return []
 }

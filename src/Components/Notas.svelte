@@ -5,19 +5,30 @@
 
   export let nota: Nota;
   export let update : any;
+  export let removeN: any;
+  export let notaIndex : number
 
   onMount(() => {
     calcularPuntaje();
   });
 
   function calcularPuntaje() {
-    update()
     if (nota.nota <= 0 || nota.porcentaje < 0) {
       nota.puntaje = 0;
       return;
     }
+    if(nota.nota > 10){
+      nota.nota = nota.nota / 10
+    }
+  
     nota.puntaje = calculoNota(nota);
+    update()
   }
+
+  function remove(){
+    removeN(notaIndex)
+  }
+
 </script>
 
 <td>
@@ -29,6 +40,7 @@
     type="number"
     min="1"
     max="7"
+    step="0.1"
     bind:value={nota.nota}
     on:change={calcularPuntaje}
   />
@@ -49,6 +61,7 @@
     class="w-16 outline-1"
     type="checkbox"
     bind:checked={nota.aprobativa}
+    on:change={calcularPuntaje}
   />
 </td>
 <td>
@@ -57,7 +70,9 @@
   {/if}
 </td>
 <td>
-  <button>x</button>
+  <button on:click={remove}>
+    <img src="/trash.svg" alt="borrar" title="borrar nota" width="18">
+  </button>
 </td>
 
 
