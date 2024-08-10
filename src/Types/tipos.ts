@@ -17,8 +17,11 @@ export type Unidad = {
 }
 
 export type Ramo = {
+    id: number,
     unidades: Unidad[],
     notas: Nota[]
     nombre?: string
-    notaFinal?:number
+    notaFinal?:number,
+    origin?: string
+
 }

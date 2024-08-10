@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { Ramo, Unidad, Nota } from "../Types/tipos";
+    import ramosCreados from "../Model/ramoscreados";
     //import ramoP from '../Model/test'
     import Unidades from "./Unidades.svelte";
   //import Notas from "./Notas.svelte";
@@ -70,6 +71,16 @@
       ramo.unidades = [...auxUnidades]
     }
 
+    function guardarRamo(){
+      if(ramo.origin == "template"){
+        ramosCreados.push(ramo)
+        return
+      }
+      if(ramo.origin == "manual"){
+        ramosCreados[ramo.id] = ramo
+      }
+
+    }
 </script>
 
 <div class="w-full ">

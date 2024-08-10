@@ -3,8 +3,11 @@
     import type {Ramo} from "../Types/tipos";
     import RamoC from "./Ramo.svelte";
     import Templates from "../Model/templates";
+    import ramosCreados from "../Model/ramoscreados";
+    import { asignarId } from "../Utils/calculoNota";
 
     let ramo: Ramo = {
+        id: asignarId(ramosCreados),
         unidades: [],
         notas: [], 
         nombre: "Nuevo Ramo",
@@ -30,7 +33,7 @@
                 // Con el || 0 aseguramos que parseInt siempre reciba un string y evitamos el error de ts
                 aux = parseInt(urlParams.get("index")|| "0")
             }
-            ramo = Templates[aux]
+            ramo = ramosCreados[aux]
             return
         }
 

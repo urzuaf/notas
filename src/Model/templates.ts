@@ -1,8 +1,11 @@
 import type { Ramo, Unidad, Nota } from "../Types/tipos";
+import { asignarId } from "../Utils/calculoNota";
 
 const Templates: Ramo[] = [
     {
         nombre: "Ingeniera economica y evaluación de proyectos",
+        id: 0,
+        origin: "template",
         notaFinal: 0,
         notas: [],
         unidades: [
@@ -33,6 +36,8 @@ const Templates: Ramo[] = [
     },
     {
         nombre: "Inteligencia Artificial",
+        id: 1,
+        origin: "template",
         notaFinal: 0,
         notas: [],
         unidades: [

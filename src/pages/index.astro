@@ -1,6 +1,7 @@
 ---
 import Ramo from "../Components/Ramo.svelte"
 import Plantillas from "../Components/Plantillas.svelte"
+import CreadorRamo from "../Components/CreadorRamo.svelte"
 ---
 
 <html lang="en">
@@ -12,6 +13,7 @@ import Plantillas from "../Components/Plantillas.svelte"
 		<title>Notas</title>
 	</head>
 	<body>
+		<CreadorRamo client:load />
 		<Plantillas client:load/>
 		<!-- <Ramo client:load />-->
 	</body>

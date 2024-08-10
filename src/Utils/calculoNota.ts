@@ -1,3 +1,4 @@
+import { number } from "astro/zod";
 import type {Nota, Ramo, Unidad} from "../Types/tipos";
 
 export function calculoNota( nota : Nota ) : number {
@@ -42,8 +43,10 @@ export function ReprobadoPorAprobativa(ramo: Ramo) : boolean{
     let aux : boolean = false
 
     ramo.unidades.forEach((unidad)=>{
-        if(unidad.aprobativa && unidad.notaUnidad && unidad.notaUnidad < 3.95){
-           aux = true
+        if(unidad.aprobativa){
+           if(SumarNotas(unidad.notas) < 3.95){
+               aux = true
+           }
         }
     })
 
@@ -58,6 +61,21 @@ export function ReprobadoPorAprobativa(ramo: Ramo) : boolean{
     }
    
     return aux
+}
+
+export function asignarId(ramos:Ramo[]):number{
+    let aux = -1
+    ramos.forEach((ramo) =>{
+        if(aux >= 0){
+            return
+        }
+        if(ramo.id == aux){
+            aux++
+        }
+    })
+
+    return aux
+    
 }
 
 export function calcularCuantoFalta(notas: Nota[]) : Nota[]{
