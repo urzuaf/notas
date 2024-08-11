@@ -3,6 +3,9 @@
     import type {Ramo} from "../Types/tipos";
     import RamoC from "./Ramo.svelte";
     import Templates from "../Model/templates";
+    import {List} from '../Model/ramos_store'
+
+    let ramosCreados = $List
 
     let ramo: Ramo = {
         unidades: [],
@@ -24,13 +27,16 @@
             // Agregamos el return para evitar que alguien manualmente ponga template e index como query
             return
         }
+        
 
         else if(urlParams.has('index')){
             if(urlParams.get("index")!=null){
                 // Con el || 0 aseguramos que parseInt siempre reciba un string y evitamos el error de ts
                 aux = parseInt(urlParams.get("index")|| "0")
             }
-            ramo = Templates[aux]
+            if(ramosCreados[aux]){
+                ramo = ramosCreados[aux]
+            }
             return
         }
 

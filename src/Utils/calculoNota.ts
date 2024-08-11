@@ -42,8 +42,10 @@ export function ReprobadoPorAprobativa(ramo: Ramo) : boolean{
     let aux : boolean = false
 
     ramo.unidades.forEach((unidad)=>{
-        if(unidad.aprobativa && unidad.notaUnidad && unidad.notaUnidad < 3.95){
-           aux = true
+        if(unidad.aprobativa){
+           if(SumarNotas(unidad.notas) < 3.95){
+               aux = true
+           }
         }
     })
 

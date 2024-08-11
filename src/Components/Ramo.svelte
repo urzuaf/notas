@@ -5,6 +5,9 @@
   //import Notas from "./Notas.svelte";
   import { CalculoRamo, ReprobadoPorAprobativa } from "../Utils/calculoNota";
 
+  import {List} from '../Model/ramos_store'
+  let listaRamos : any = $List
+
   //let ramo = ramoP
 
   export let ramo:Ramo
@@ -55,6 +58,9 @@
       // Aquí puedes llamar a la función que desees
       editarNombre = !editarNombre
     }
+    else if(event.key === 'Escape'){
+      editarNombre = !editarNombre
+    }
   }
 
     function borrarNota(unidadIdx:number, notaIdx : number){
@@ -70,18 +76,51 @@
       ramo.unidades = [...auxUnidades]
     }
 
+    function guardarRamo(){
+      let auxIndex = -1
+      listaRamos.forEach((element:Ramo) => {
+        if(element.nombre === ramo.nombre){
+          auxIndex = listaRamos.indexOf(element)
+        } 
+      });
+      if(auxIndex >= 0){
+        listaRamos[auxIndex] = ramo 
+      }
+      else{
+        listaRamos.push(ramo)
+      }
+      localStorage.setItem("listaRamos", JSON.stringify(listaRamos))
+      console.log("Se guardo: ", ramo)
+      
+    }
+
+    function eliminarRamo(){
+      let auxIndex = -1
+      listaRamos.forEach((element:Ramo) => {
+        if(element.nombre === ramo.nombre){
+          auxIndex = listaRamos.indexOf(element)
+        } 
+      });
+
+      if(auxIndex >= 0){
+        listaRamos.splice(auxIndex, 1) 
+        localStorage.setItem("listaRamos", JSON.stringify(listaRamos))
+      }
+      window.location.href = '/'
+    }
+
 </script>
 
 <div class="w-full ">
     <div class="px-2 flex flex-col gap-2 w-full ">
       <div class="flex w-full ">
         {#if !editarNombre}
-        <h1 class="text-2xl font-bold w-fit p-1">{ramo.nombre}</h1>
+        <h1 class="text-2xl font-bold  p-1">{ramo.nombre}</h1>
         <button on:click={() => editarNombre = !editarNombre}>
           <img src="/edit.svg" alt="editar" width="30" class="px-1" />
         </button>
         {:else}
-        <input autofocus type="text" class="text-2xl font-bold w-fit outline outline-1 rounded shadow-md p-1" bind:value={ramo.nombre} on:keydown={handleEnter} />
+        <input autofocus type="text" class="w-5/6 text-2xl font-bold md:w-fit outline outline-1 rounded shadow-md p-1" bind:value={ramo.nombre} on:keydown={handleEnter} on:blur={() => editarNombre = !editarNombre}  />
         <button on:click={() => editarNombre = !editarNombre} >
           <img src="/tick.svg" alt="editar" width="30" class="px-1" />
         </button>
@@ -89,7 +128,9 @@
       </div>
         <div>
           <button class="bg-blue-700 font-medium rounded p-1 px-2 text-white" on:click={addUnidad}>Nueva Unidad</button>
-          <button class="bg-green-700 font-medium rounded p-1 px-2 text-white">Guardar Ramo</button>
+          <button class="bg-green-700 font-medium rounded p-1 px-2 text-white" on:click={guardarRamo}>Guardar Ramo</button>
+          <button class="bg-red-700 font-medium rounded p-1 px-2 text-white" on:click={eliminarRamo}>Eliminar Ramo</button>
+
         </div>
     </div>
     <p class="py-4 pl-4 text-lg">Nota actual: <span class="font-bold {estado}">{ramo.notaFinal}</span></p>
