@@ -22,6 +22,6 @@ function crearRamo(){
 
 </script>
 
-<button on:click={crearRamo} class="border rounded shadow-sm w-fit p-2 bg-slate-200 hover:bg-slate-300 cursor-pointer transition-all">
-    Crear Ramo
+<button on:click={crearRamo} class="hover:scale-110 transition-all" title="Crear Ramo">
+    <img src="/add.svg" alt="Crear Ramo" width="25">
 </button>

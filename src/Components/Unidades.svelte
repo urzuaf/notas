@@ -42,13 +42,13 @@
   }
 </script>
 
-<div class=" w-fit rounded">
+<div class="w-fit mx-auto rounded p-2">
   <div
     class="bg-slate-600 rounded-t-md px-4 py-2 flex justify-between text-white"
   >
     <p class="">
       <input
-        class="w-32 bg-inherit text-center"
+        class=" bg-inherit text-center"
         type="text"
         bind:value={unidad.nombre}
       />

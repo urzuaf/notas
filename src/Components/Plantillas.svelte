@@ -6,15 +6,17 @@
 
 </script>
 
-<div>
-    Plantillas  
+<div class="flex flex-col gap-4">
+
+    <h2 class="font-bold text-xl">Plantillas</h2>
+    
     <ul class="flex flex-col gap-2">
         {#each ramos as ramo, index }
-            <li class="border rounded shadow-sm w-fit p-2 bg-slate-200 hover:bg-slate-300 cursor-pointer transition-all">
-                <a href="/ramo?template={index}" > 
+        <a href="/ramo?template={index}" > 
+            <li class="border rounded shadow-sm w-full p-2 bg-slate-200 hover:bg-slate-300 cursor-pointer transition-all max-w-sm">
                     {ramo.nombre}
-                </a>
-            </li>    
+                </li>    
+            </a>
         {/each}
     </ul>
 </div>

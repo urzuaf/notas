@@ -36,7 +36,7 @@
 </td>
 <td>
   <input
-    class="w-16 bg-inherit text-center"
+    class="bg-inherit text-center"
     type="number"
     min="1"
     max="7"
@@ -48,7 +48,7 @@
 <td>
   <input
 
-    class="w-16 bg-inherit text-center"
+    class="bg-inherit text-center"
     type="number"
     min="0"
     max="100"
@@ -58,7 +58,7 @@
 </td>
 <td>
   <input
-    class="w-16 outline-1"
+    class=" outline-1"
     type="checkbox"
     bind:checked={nota.aprobativa}
     on:change={calcularPuntaje}

@@ -1,28 +1,13 @@
 ---
-import Ramo from "../Components/Ramo.svelte"
-import Plantillas from "../Components/Plantillas.svelte"
-import CreadorRamo from "../Components/CreadorRamo.svelte"
-import ListaRamos from '../Components/ListaRamos.svelte'
+import Plantillas from "../Components/Plantillas.svelte";
+import ListaRamos from "../Components/ListaRamos.svelte";
+import LayoutBase from "../Layouts/LayoutBase.astro";
 ---
+<LayoutBase title="Promediando">
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Notas</title>
-	</head>
-	<body>
-		<CreadorRamo  client:only/>
+	<div class="flex gap-4 md:justify-around md:flex-row flex-col px-8">
 		<ListaRamos client:only />
-		<Plantillas client:load/>
-		<!-- <Ramo client:load />-->
-	</body>
-</html>
-
-<style>
-	body{
-		padding: 1rem;
-	}
-</style>
+		<Plantillas client:load />
+	</div>
+	
+</LayoutBase>

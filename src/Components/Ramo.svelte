@@ -111,35 +111,44 @@
 
 </script>
 
-<div class="w-full ">
+<div class="w-full flex flex-col gap-2 justify-around">
+  <div class="">
+
     <div class="px-2 flex flex-col gap-2 w-full ">
       <div class="flex w-full ">
         {#if !editarNombre}
-        <h1 class="text-2xl font-bold  p-1">{ramo.nombre}</h1>
+        <h1 class="text-2xl font-bold">{ramo.nombre}</h1>
         <button on:click={() => editarNombre = !editarNombre}>
-          <img src="/edit.svg" alt="editar" width="30" class="px-1" />
+          <img src="/edit.svg" alt="editar" title="Editar nombre" width="28" class="px-1" />
         </button>
         {:else}
-        <input autofocus type="text" class="w-5/6 text-2xl font-bold md:w-fit outline outline-1 rounded shadow-md p-1" bind:value={ramo.nombre} on:keydown={handleEnter} on:blur={() => editarNombre = !editarNombre}  />
+        <input autofocus type="text" class="text-2xl font-bold outline outline-1 rounded shadow-md p-1" bind:value={ramo.nombre} on:keydown={handleEnter} on:blur={() => editarNombre = !editarNombre}  />
         <button on:click={() => editarNombre = !editarNombre} >
           <img src="/tick.svg" alt="editar" width="30" class="px-1" />
         </button>
         {/if}
       </div>
         <div>
-          <button class="bg-blue-700 font-medium rounded p-1 px-2 text-white" on:click={addUnidad}>Nueva Unidad</button>
-          <button class="bg-green-700 font-medium rounded p-1 px-2 text-white" on:click={guardarRamo}>Guardar Ramo</button>
-          <button class="bg-red-700 font-medium rounded p-1 px-2 text-white" on:click={eliminarRamo}>Eliminar Ramo</button>
+          <button class="bg-blue-700 font-medium rounded p-1 px-2 text-white" on:click={addUnidad}>
+            <img src="/add.svg" alt="Nueva unidad" title="Nueva unidad" width="25">
+          </button>
+          <button class="bg-green-700 font-medium rounded p-1 px-2 text-white" on:click={guardarRamo}>
+            <img src="/save.svg" alt="guardar ramo" title="Guardar ramo" width="25">
+          </button>
+          <button class="bg-red-700 font-medium rounded p-1 px-2 text-white" on:click={eliminarRamo}>
+            <img src="/trash.svg" alt="eliminar ramo" title="Eliminar ramo" width="25">
+          </button>
 
         </div>
     </div>
     <p class="py-4 pl-4 text-lg">Nota actual: <span class="font-bold {estado}">{ramo.notaFinal}</span></p>
+  </div>
+  
+  <div class="">
     {#each ramo.unidades as unidad, idx}
-        <div class="mb-2">
-            <Unidades unidad={unidad} update={updateRamo} unidadIndex={idx} removeN={borrarNota} removeU={borrarUnidad} />
+    <div class="mb-2">
+      <Unidades unidad={unidad} update={updateRamo} unidadIndex={idx} removeN={borrarNota} removeU={borrarUnidad} />
         </div>
-    {/each}
-    <!-- {#each ramo.notas as nota}
-       <Notas nota={nota} toplevel={true} /> 
-    {/each} -->
+        {/each}
+      </div>
 </div>
