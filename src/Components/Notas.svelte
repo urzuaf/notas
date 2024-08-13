@@ -32,7 +32,7 @@
 </script>
 
 <td>
-  <input class="w-fit bg-inherit text-center" bind:value={nota.nombre} />
+  <input class=" bg-inherit text-center" bind:value={nota.nombre} />
 </td>
 <td>
   <input

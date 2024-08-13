@@ -53,7 +53,7 @@
         bind:value={unidad.nombre}
       />
       <input
-        class="w-8 bg-inherit text-center"
+        class=" bg-inherit text-center"
         type="number"
         bind:value={unidad.porcentaje}
         on:change={updateUnidad}
@@ -70,7 +70,7 @@
       </button>
     </div>
   </div>
-  <table class="bg-slate-200 pb-1">
+  <table class="bg-slate-200 pb-1 table-auto">
     <thead class="pb-2">
       <tr>
         <th>Nombre</th>
