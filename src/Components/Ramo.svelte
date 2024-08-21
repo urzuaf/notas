@@ -20,7 +20,7 @@
     let nuevaNota: Nota = {
       nota: 0,
       aprobativa: false,
-      nombre: "nuevaNota",
+      nombre: "Nota x",
       porcentaje: 0,
       puntaje: 0,
     };
@@ -29,7 +29,7 @@
         aprobativa: false,
         notas: [nuevaNota],
         porcentaje: 0,
-        nombre: "nuevaUnidad", 
+        nombre: "Unidad x", 
         notaUnidad: 0,
         puntaje: 0
 
@@ -46,20 +46,24 @@
           ramo.notaFinal = 3.94
         }
 
+        guardarRamo()
+
         //Definimos si el color sera rojo o verde para la nota
         //Como es posible que se agreguen las notas tanto como 1 o 10, consideramos ambos casos
         if(ramo.notaFinal){
             ramo.notaFinal < 3.95 ? estado = 'text-red-800': estado = 'text-green-800'
         } 
+
   }
 
    function handleEnter(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       // Aquí puedes llamar a la función que desees
-      editarNombre = !editarNombre
+      toggleEditarNombre()
+
     }
     else if(event.key === 'Escape'){
-      editarNombre = !editarNombre
+      toggleEditarNombre()
     }
   }
 
@@ -109,6 +113,12 @@
       window.location.href = '/'
     }
 
+    function toggleEditarNombre (){
+        if(ramo.nombre != ""){
+          editarNombre = !editarNombre
+        }
+    }
+
 </script>
 
 <div class="w-full flex flex-col gap-2 justify-around">
@@ -117,13 +127,13 @@
     <div class="px-2 flex flex-col gap-2 w-full ">
       <div class="flex w-full ">
         {#if !editarNombre}
-        <h1 class="text-2xl font-bold">{ramo.nombre}</h1>
-        <button on:click={() => editarNombre = !editarNombre}>
+        <h1 class="md:text-2xl text-lg font-bold">{ramo.nombre}</h1>
+        <button on:click={toggleEditarNombre}>
           <img src="/edit.svg" alt="editar" title="Editar nombre" width="28" class="px-1" />
         </button>
         {:else}
-        <input autofocus type="text" class="text-2xl font-bold outline outline-1 rounded shadow-md p-1" bind:value={ramo.nombre} on:keydown={handleEnter} on:blur={() => editarNombre = !editarNombre}  />
-        <button on:click={() => editarNombre = !editarNombre} >
+        <input autofocus type="text" class="max-w-72 text-2xl font-bold outline outline-1 rounded shadow-md p-1"  bind:value={ramo.nombre} on:keydown={handleEnter} on:blur={toggleEditarNombre}  />
+        <button on:click={toggleEditarNombre} >
           <img src="/tick.svg" alt="editar" width="30" class="px-1" />
         </button>
         {/if}
@@ -132,9 +142,9 @@
           <button class="bg-blue-700 font-medium rounded p-1 px-2 text-white" on:click={addUnidad}>
             <img src="/add.svg" alt="Nueva unidad" title="Nueva unidad" width="25">
           </button>
-          <button class="bg-green-700 font-medium rounded p-1 px-2 text-white" on:click={guardarRamo}>
+          <!-- <button class="bg-green-700 font-medium rounded p-1 px-2 text-white" on:click={guardarRamo}>
             <img src="/save.svg" alt="guardar ramo" title="Guardar ramo" width="25">
-          </button>
+          </button> -->
           <button class="bg-red-700 font-medium rounded p-1 px-2 text-white" on:click={eliminarRamo}>
             <img src="/trash.svg" alt="eliminar ramo" title="Eliminar ramo" width="25">
           </button>

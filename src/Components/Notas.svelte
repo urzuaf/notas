@@ -31,57 +31,43 @@
 
 </script>
 
-<td>
-  <input class=" bg-inherit text-center" bind:value={nota.nombre} />
-</td>
-<td>
-  <input
-    class="bg-inherit text-center"
-    type="number"
-    min="1"
-    max="7"
-    step="0.1"
-    bind:value={nota.nota}
-    on:change={calcularPuntaje}
-  />
-</td>
-<td>
-  <input
+<div class="flex justify-around p-1 items-center">
 
-    class="bg-inherit text-center"
-    type="number"
-    min="0"
-    max="100"
-    bind:value={nota.porcentaje}
-    on:change={calcularPuntaje}
-  />
-</td>
-<td>
-  <input
-    class=" outline-1"
-    type="checkbox"
-    bind:checked={nota.aprobativa}
-    on:change={calcularPuntaje}
-  />
-</td>
-<td>
-  {#if nota.puntaje}
-    <p>{nota.puntaje}</p>
-  {/if}
-</td>
-<td>
-  <button on:click={remove}>
-    <img src="/trash.svg" alt="borrar" title="borrar nota" width="18">
-  </button>
-</td>
+  <div>
+    <input class="max-w-24 bg-inherit" bind:value={nota.nombre} />
+  </div>
+  <div>
+    <input
+      class="max-w-12 bg-inherit"
+      type="number"
+      min="1"
+      max="7"
+      step="0.1"
+      bind:value={nota.nota}
+      on:change={calcularPuntaje}
+    />
+  </div>
+  <div>
+    <input
+  
+      class="max-w-12 bg-inherit"
+      type="number"
+      min="0"
+      max="100"
+      bind:value={nota.porcentaje}
+      on:change={calcularPuntaje}
+    />
+  </div>
+  <div>
+    <button on:click={remove}>
+      <img src="/trash.svg" alt="borrar" title="borrar nota" width="18">
+    </button>
+    <!-- Agregar el hacer aprovativa aqui -->
+  </div>
+</div>
 
 
 <style>
-  td{
-    padding-left: 1rem;
-    padding-right: 1rem;
-    text-align: center;
-  }
   input{
     border-radius: 5px;
     transition: all .3s ease-in-out;
